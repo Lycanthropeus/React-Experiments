@@ -1,14 +1,22 @@
-import React,{useState} from "react";
+import React,{useState,useRef} from "react";
 import {CardList} from "./CardList";
-
+import {v4 as uuidv4} from "uuid";
 
 function App(){
  
-  const [names, setName] = useState([{id:1,name:'Niranjan',age:18}]);
+  const [names, setName] = useState([]);
+  const studentNameRef = useRef();  
   
-  
-  const doOnClick = () => {
-    console.log('hey there');
+  const createNewStudent = (e) => {
+    const studentName = studentNameRef.current.value;
+    if(studentName==="")
+      return;
+
+    setName(prevName=>{
+      return [...prevName,{id:uuidv4(),name:studentName}]
+    });
+    
+    studentNameRef.current.value = null;
   };
 
   const alsoDoOnClick = () =>{
@@ -18,9 +26,8 @@ function App(){
   return(
       <> 
       <CardList names={names}/>
-      <input type="text"/>
-      <button onClick={doOnClick}> Click Me</button>
-      <button onClick={alsoDoOnClick}> Okay </button>
+      <input ref={studentNameRef} type="text"/>
+      <button onClick={createNewStudent}>Add Student</button>
      </>
   );
 
