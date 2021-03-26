@@ -1,15 +1,27 @@
-import React from "react";
-import {Card} from "./Card";
+import React,{useState} from "react";
+import {CardList} from "./CardList";
+
 
 function App(){
-  const DoOnClick = () =>{
-    console.log('hello');
+ 
+  const [names, setName] = useState([{id:1,name:'Niranjan',age:18}]);
+  
+  
+  const doOnClick = () => {
+    console.log('hey there');
   };
+
+  const alsoDoOnClick = () =>{
+    console.log('Okay then');
+  }
+
   return(
-    <div className="App">
-      <h1>My first react</h1>
-      <Card name="elephant" age="13" onClicked={DoOnClick}/>
-     </div>
+      <> 
+      <CardList names={names}/>
+      <input type="text"/>
+      <button onClick={doOnClick}> Click Me</button>
+      <button onClick={alsoDoOnClick}> Okay </button>
+     </>
   );
 
 }
